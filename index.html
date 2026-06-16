@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Living Canvas - Digital Family Living Room</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Window Background Frame (Environmental Layer) -->
+  <div class="window-background" id="windowBackground" aria-hidden="true">
+    <div class="sky-gradient"></div>
+    <div class="window-animation-container" id="windowAnimationContainer"></div>
+  </div>
+
+  <!-- Main Grid Framework Container -->
+  <main class="living-canvas-container">
+    
+    <!-- TOP MANTEL: Trophy & Achievement Shelf -->
+    <section class="top-mantel" aria-label="Trophy and Achievement Shelf">
+      <div class="mantel-shelf">
+        <button class="mantel-item" data-metadata='{"title": "Summer Road Trip 2024", "date": "July 12, 2024", "desc": "Crossed 4 state lines and survived 14 hours in the minivan together!"}' aria-label="View Summer Road Trip 2024 Achievement">
+          <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.27-3.82c.08-.24.3-.39.56-.39h10.34c.26 0 .48.15.56.39L19 11H5z"/></svg>
+        </button>
+        <button class="mantel-item" data-metadata='{"title": "Spelling Bee Champion", "date": "November 03, 2025", "desc": "Leo won 1st place with the winning word: INTUITION."}' aria-label="View Spelling Bee Champion Achievement">
+          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.66 4.34 4.94c.74.83 1.66 1.43 2.66 1.77V16H9c-1.1 0-2 .9-2 2v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-1.1-.9-2-2-2h-2v-4.29c1-.34 1.93-.94 2.66-1.77C18.08 9.66 20 7.55 20 5V4c0-1.1-.9-2-2-2zm-8 4H6V4h4v2zm8 0h-4V4h4v2z"/></svg>
+        </button>
+        <button class="mantel-item" data-metadata='{"title": "Annual Family Run", "date": "April 19, 2026", "desc": "Completed the local charity 5K. Everyone made it past the finish line!"}' aria-label="View Annual Family Run Achievement">
+          <svg viewBox="0 0 24 24"><path d="M13.49 5.42c.41-.63.24-1.47-.39-1.88c-.63-.41-1.47-.24-1.88.39c-.41.63-.24 1.47.39 1.88c.63.41 1.47.24 1.88-.39zM20.3 8.1c-.22-.72-.98-1.12-1.7-1.1l-4.1.1l.6-3c.1-.5-.2-1-.7-1.2c-.5-.2-1 0-1.2.5l-2.1 4.7c-.2.4-.2.8 0 1.2l1.6 2.8l-3.3.7l-1.9-2.2c-.3-.4-.9-.5-1.4-.2c-.5.3-.6.9-.3 1.4l2.4 2.8c.2.3.6.5 1 .5l4.3-.9l-1.1 5.3c-.1.5.2 1 .7 1.2c.1 0 .2.1.3.1c.4 0 .8-.2 1-.6l2.3-5.5c.2-.4.2-.9 0-1.3l-1.5-2.7l3-.6l1.2 2.1c.3.5.9.7 1.4.4c.5-.2.7-.9.4-1.4l-1.5-2.7z"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- LEFT WALL: Multi-user Private Room Entry Nodes -->
+    <section class="left-wall" aria-label="Bedroom Corridors">
+      <div class="door-container">
+        <!-- Bedroom Door 1 -->
+        <button class="bedroom-door" id="door1" style="--door-color: #219EBC; --member-glow-color: rgba(33, 158, 188, 0.6);" data-target="Sarah's Room">
+          <div class="door-frame">
+            <div class="door-leaf">
+              <span class="nameplate">Sarah</span>
+              <div class="door-knob"></div>
+            </div>
+          </div>
+        </button>
+        
+        <!-- Bedroom Door 2 -->
+        <button class="bedroom-door" id="door2" style="--door-color: #9B5DE5; --member-glow-color: rgba(155, 93, 229, 0.6);" data-target="Leo's Room">
+          <div class="door-frame">
+            <div class="door-leaf">
+              <span class="nameplate">Leo</span>
+              <div class="door-knob"></div>
+            </div>
+          </div>
+        </button>
+
+        <!-- Bedroom Door 3 (Locked / Unbuilt Example) -->
+        <button class="bedroom-door locked" id="door3" style="--door-color: #555; --member-glow-color: rgba(0,0,0,0);" disabled aria-disabled="true">
+          <div class="door-frame">
+            <div class="door-leaf">
+              <span class="nameplate">Guest Room</span>
+              <div class="door-knob"></div>
+              <div class="reserved-badge">Reserved</div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- CENTER WALL: Central Family TV & Furniture Surface Sandbox -->
+    <section class="center-wall" aria-label="Main Entertainment and Living Zone">
+      
+      <!-- Central Family TV Component -->
+      <div class="central-tv" id="centralTV">
+        <div class="tv-bezel">
+          <div class="tv-screen-container">
+            <!-- Dynamic Active Communication Layer / Static Notice State -->
+            <div class="tv-content-layer" id="tvContentLayer">
+              <div class="ambient-playlist" id="ambientPlaylist">
+                <div class="notification-ticker">
+                  <span class="ticker-text">Family Broadcast: Sunday Dinner at 6:00 PM. Don't be late! • Leo won the Spelling Bee! • Garden clean-up this Saturday.</span>
+                </div>
+                <div class="static-notice-display">
+                  <h3>Welcome to the Living Room</h3>
+                  <p>Click TV or use the remote control to push live streams or broadcast custom alerts.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Target Hover Cue Overlay -->
+            <div class="tv-hover-overlay">
+              <svg class="play-icon-svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Couch & Table Area Surface Sandbox -->
+      <div class="couch-table-surface">
+        <div class="furniture-silhouette">
+          <div class="coffee-table">
+            
+            <!-- Discovery Hitbox: Coffee Mug -->
+            <button class="hitbox-node mug-node" id="coffeeMug" aria-label="Coffee Mug - Check daily notice">
+              <svg class="mug-svg" viewBox="0 0 24 24">
+                <path class="steam-path" d="M8 2.5s1 .5 1 1.5s-1 1.5-1 2.5M12 2c0 0 1 .5 1 1.5s-1 1.5-1 2.5" />
+                <path d="M2 21h16v-2H2v2zM6 19h10v-9H6v9zm10-7h1.5c1.4 0 2.5-1.1 2.5-2.5S18.9 7 17.5 7H16v5z"/>
+              </svg>
+            </button>
+
+            <!-- Discovery Hitbox: TV Remote Control -->
+            <button class="hitbox-node remote-node" id="tvRemote" aria-label="TV Remote Control - Toggle TV State">
+              <div class="remote-hardware">
+                <div class="remote-button power"></div>
+                <div class="remote-button"></div>
+                <div class="remote-button"></div>
+              </div>
+            </button>
+
+            <!-- Discovery Hitbox: Desk Toy / Pendulum -->
+            <button class="hitbox-node pendulum-node" id="deskToy" aria-label="Desk Toy Pendulum - Activate visual simulation">
+              <div class="pendulum-stand"></div>
+              <div class="pendulum-arm" id="pendulumArm">
+                <div class="pendulum-bob"></div>
+              </div>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT WALL: Specialty Routing & Audio Control -->
+    <section class="right-wall" aria-label="Recreation Corner">
+      <div class="recreation-zone">
+        
+        <!-- Game Room Door Portal -->
+        <button class="game-portal" id="gameRoomDoor" aria-label="Enter Game Room Portal">
+          <div class="game-portal-frame">
+            <span class="portal-title">GAME ROOM</span>
+          </div>
+        </button>
+
+        <!-- Music Corner Module -->
+        <div class="music-corner" id="musicCorner">
+          <div class="audio-cabinet">
+            <button class="vinyl-record" id="vinylRecord" aria-label="Toggle Vinyl Music Playback">
+              <div class="vinyl-grooves"></div>
+              <div class="vinyl-label"></div>
+            </button>
+            <div class="audio-controls-label">Music Corner Console</div>
+          </div>
+          <!-- Target Canvas Node for Micro-Particle Paths Floating Upward -->
+          <canvas class="music-particle-canvas" id="musicCanvas"></canvas>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAMILY MEMORY WALL: Asymmetric Gallery Collage -->
+    <section class="family-memory-wall" aria-label="Family Memory Wall Gallery">
+      <div class="collage-container">
+        
+        <button class="memory-card card-size-m" data-narrative='{"title": "Grandpa Birthday 2025", "desc": "Gathered around the old oak table for Grandpa&apos;s 80th milestone celebration. Memories to last a lifetime.", "img": "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=600&q=80"}' aria-label="View Memory: Grandpa Birthday 2025">
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=300&q=80" alt="Family gathered around dinner table laughing">
+            <span class="frame-caption">Grandpa's 80th</span>
+          </div>
+        </button>
+
+        <button class="memory-card card-size-l" data-narrative='{"title": "Summer Beach Escape", "desc": "Spent an amazing week building grand sandcastles and tracking tide pools down along the southern coast.", "img": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"}' aria-label="View Memory: Summer Beach Escape">
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" alt="Sunny tropical beach landscape with ocean waves">
+            <span class="frame-caption">Beach Escape '24</span>
+          </div>
+        </button>
+
+        <button class="memory-card card-size-s" data-narrative='{"title": "Snow Day Cocoa", "desc": "Schools were completely frozen over, so we spent the entire morning drinking extra marshmallow hot cocoa indoors.", "img": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80"}' aria-label="View Memory: Snow Day Cocoa">
+          <div class="photo-frame">
+            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=300&q=80" alt="Hot chocolate mug filled with white marshmallows">
+            <span class="frame-caption">Snow Day Cocoa</span>
+          </div>
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- OVERLAY / LIGHTBOX / MODAL INTERACTION SYSTEM -->
+  
+  <!-- Global Toast Notification Asset Container -->
+  <div class="global-toast-container" id="toastContainer" role="alert" aria-live="assertive"></div>
+
+  <!-- Central TV Action Lightbox Modal Panel -->
+  <div class="overlay-modal-panel" id="tvControlModal" role="dialog" aria-modal="true" aria-labelledby="tvModalTitle" hidden>
+    <div class="modal-backdrop" id="tvModalBackdrop"></div>
+    <div class="modal-card">
+      <h2 id="tvModalTitle" class="modal-header-text">TV Control Center</h2>
+      <form id="tvConfigForm" class="modal-form">
+        <div class="form-group">
+          <label for="youtubeUrlInput">YouTube Video Embed URL or ID</label>
+          <input type="text" id="youtubeUrlInput" placeholder="e.g., dQw4w9WgXcQ or full secure embed link" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="announcementTextInput">Live Announcement Broadcast Text</label>
+          <textarea id="announcementTextInput" rows="3" placeholder="Type custom message to flash over the screen workspace..." class="form-input"></textarea>
+        </div>
+        <div class="validation-feedback-node" id="formValidationFeedback"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="closeTvModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Apply Updates</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- General Metadata Lightbox Modal (Used for Trophy Mantel & Family Memory Wall) -->
+  <div class="overlay-modal-panel" id="generalMetadataModal" role="dialog" aria-modal="true" aria-labelledby="metaModalTitle" hidden>
+    <div class="modal-backdrop" id="metaModalBackdrop"></div>
+    <div class="modal-card">
+      <h2 id="metaModalTitle" class="modal-header-text">Archive Detail</h2>
+      <div class="meta-modal-content">
+        <p id="metaModalDate" class="meta-date-stamp"></p>
+        <div id="metaModalMediaContainer" class="meta-media-frame" hidden>
+          <img id="metaModalImg" src="" alt="Archival Detail View Element">
+        </div>
+        <p id="metaModalDesc" class="meta-description-body"></p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-primary" id="closeMetaModalBtn">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+          </html>
+      
