@@ -1,292 +1,178 @@
-/**
- * Living Canvas Engine v1.0
- * Unified System Controller (Production Refactor)
- */
+/* ==========================================================================
+   THEME VARIABLES (added so your first file doesn’t break)
+   ========================================================================== */
+:root {
+  --accent-amber: #ffb020;
+  --container-wall: #2a2f36;
+  --text-default: #ffffff;
+  --text-secondary: #b5b5b5;
+  --color-error: #ff4d4d;
+  --color-success: #3ddc84;
 
-document.addEventListener("DOMContentLoaded", () => {
-  /* ===============================
-     SAFE DOM BINDING LAYER
-  =============================== */
-  const $ = (id) => document.getElementById(id);
+  --spacing-inner: 8px;
+  --spacing-card: 20px;
+}
 
-  const el = {
-    windowBackground: $("windowBackground"),
-    windowAnimContainer: $("windowAnimationContainer"),
-    toastContainer: $("toastContainer"),
+/* ==========================================================================
+   BASE LAYOUT
+   ========================================================================== */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #111;
+  color: white;
+}
 
-    centralTV: $("centralTV"),
-    tvContentLayer: $("tvContentLayer"),
+/* ==========================================================================
+   BACKGROUND SYSTEM
+   ========================================================================== */
+.window-background {
+  position: fixed;
+  inset: 0;
+}
 
-    coffeeMug: $("coffeeMug"),
-    tvRemote: $("tvRemote"),
-    deskToy: $("deskToy"),
-    pendulumArm: $("pendulumArm"),
+.sky-gradient {
+  width: 100%;
+  height: 100%;
+}
 
-    gameRoomDoor: $("gameRoomDoor"),
-    vinylRecord: $("vinylRecord"),
-    musicCanvas: $("musicCanvas"),
+/* ==========================================================================
+   TOAST SYSTEM
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
 
-    tvForm: $("tvConfigForm"),
-    tvFeedback: $("formValidationFeedback"),
+.toast {
+  background: #222;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 6px;
+}
 
-    metaModal: $("generalMetadataModal"),
-    tvModal: $("tvControlModal")
-  };
+/* ==========================================================================
+   MODAL SYSTEM
+   ========================================================================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  /* ===============================
-     EVENT BUS (LIGHTWEIGHT CORE)
-  =============================== */
-  const EventBus = {
-    events: {},
-    on(e, fn) {
-      (this.events[e] ||= []).push(fn);
-    },
-    emit(e, data) {
-      (this.events[e] || []).forEach(fn => fn(data));
-    }
-  };
+.modal-card {
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+}
 
-  /* ===============================
-     TOAST SYSTEM
-  =============================== */
-  const Toast = {
-    show(msg) {
-      const node = document.createElement("div");
-      node.className = "toast-item";
-      node.textContent = msg;
-      el.toastContainer.appendChild(node);
+.hidden {
+  display: none;
+}
 
-      setTimeout(() => {
-        node.style.opacity = "0";
-        node.style.transform = "translateY(-10px)";
-        setTimeout(() => node.remove(), 300);
-      }, 4500);
-    }
-  };
+/* ==========================================================================
+   FORM SYSTEM
+   ========================================================================== */
+.form-input {
+  border: 1px solid #444;
+  background: #1a1d20;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
 
-  /* ===============================
-     MODAL SYSTEM
-  =============================== */
-  class Modal {
-    constructor(modal) {
-      this.modal = modal;
-      this.backdrop = modal?.querySelector(".modal-backdrop");
-      this.closeBtn = modal?.querySelector("button");
+.form-input:focus {
+  border-color: var(--accent-amber);
+}
 
-      this.backdrop?.addEventListener("click", () => this.close());
-      this.closeBtn?.addEventListener("click", () => this.close());
-    }
+textarea.form-input {
+  resize: vertical;
+  min-height: 80px;
+}
 
-    open() {
-      this.modal.hidden = false;
-      this.modal.removeAttribute("hidden");
-    }
+/* ==========================================================================
+   BUTTON SYSTEM
+   ========================================================================== */
+.btn {
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 0.15s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
 
-    close() {
-      this.modal.hidden = true;
-      this.modal.setAttribute("hidden", "");
-    }
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--accent-amber);
+  color: #1A1D20;
+}
+
+.btn-primary:hover {
+  background-color: #ffbe2e;
+}
+
+.btn-secondary {
+  background-color: var(--container-wall);
+  color: var(--text-default);
+}
+
+.btn-secondary:hover {
+  background-color: #3a3f46;
+}
+
+/* ==========================================================================
+   VALIDATION FEEDBACK
+   ========================================================================== */
+.validation-feedback-node {
+  font-size: 12px;
+  min-height: 16px;
+  color: var(--text-secondary);
+}
+
+.validation-feedback-node.error {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.validation-feedback-node.success {
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent-amber);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 600px) {
+  .modal-card {
+    padding: var(--spacing-card);
   }
+}
 
-  const tvModal = new Modal(el.tvModal);
-  const metaModal = new Modal(el.metaModal);
-
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      tvModal.close();
-      metaModal.close();
-    }
-  });
-
-  /* ===============================
-     ENVIRONMENT SYSTEM
-  =============================== */
-  function setSky() {
-    const h = new Date().getHours();
-    const sky = el.windowBackground.querySelector(".sky-gradient");
-
-    if (h < 12) {
-      sky.style.background = "linear-gradient(135deg,#FFB703,#219EBC)";
-    } else if (h < 18) {
-      sky.style.background = "linear-gradient(135deg,#219EBC,#8ECAE6)";
-    } else {
-      sky.style.background = "linear-gradient(135deg,#023047,#1A1D20)";
-    }
-  }
-
-  setSky();
-
-  el.windowBackground.parentElement.addEventListener("click", (e) => {
-    if (e.target === document.body) spawnStar();
-  });
-
-  function spawnStar() {
-    const star = document.createElement("div");
-    star.className = "shooting-star-node";
-    star.style.top = Math.random() * 40 + "%";
-    star.style.left = Math.random() * 20 + "%";
-    el.windowAnimContainer.appendChild(star);
-    setTimeout(() => star.remove(), 1200);
-  }
-
-  /* ===============================
-     TV SYSTEM
-  =============================== */
-  let originalTV = el.tvContentLayer.innerHTML;
-
-  el.centralTV.addEventListener("click", () => {
-    tvModal.open();
-    el.tvFeedback.textContent = "";
-    el.tvFeedback.className = "validation-feedback-node";
-  });
-
-  el.tvForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const url = $("youtubeUrlInput").value.trim();
-    const msg = $("announcementTextInput").value.trim();
-
-    if (!url && !msg) {
-      el.tvFeedback.textContent = "Provide input.";
-      el.tvFeedback.className = "error";
-      return;
-    }
-
-    if (url) {
-      const embed = url.includes("http")
-        ? url
-        : `https://www.youtube.com/embed/${url}`;
-
-      el.tvContentLayer.innerHTML =
-        `<iframe class="tv-iframe-element" src="${embed}?autoplay=1&mute=1"></iframe>`;
-    } else {
-      el.tvContentLayer.innerHTML = `
-        <div class="ambient-playlist">
-          <div class="static-notice-display">
-            <h3>${msg}</h3>
-            <p>${msg}</p>
-          </div>
-        </div>`;
-    }
-
-    Toast.show("TV updated");
-    setTimeout(() => tvModal.close(), 600);
-  });
-
-  el.tvRemote.addEventListener("click", () => {
-    if (el.tvContentLayer.querySelector("iframe")) {
-      el.tvContentLayer.innerHTML = originalTV;
-      Toast.show("TV reset");
-    } else {
-      el.tvContentLayer.innerHTML =
-        `<iframe class="tv-iframe-element"
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1"></iframe>`;
-      Toast.show("Quick play");
-    }
-  });
-
-  /* ===============================
-     NAVIGATION SYSTEM
-  =============================== */
-  document.querySelectorAll(".bedroom-door").forEach(d => {
-    d.addEventListener("click", () => {
-      if (d.classList.contains("locked")) return;
-      Toast.show("Routing to " + d.dataset.target);
-    });
-  });
-
-  /* ===============================
-     GAME PORTAL
-  =============================== */
-  el.gameRoomDoor.addEventListener("click", () => {
-    Toast.show("Loading game room...");
-    el.gameRoomDoor.style.transform = "scale(2)";
-    setTimeout(() => {
-      el.gameRoomDoor.style.transform = "none";
-    }, 1200);
-  });
-
-  /* ===============================
-     MUSIC SYSTEM (CANVAS)
-  =============================== */
-  let ctx, particles = [], active = false, raf;
-
-  if (el.musicCanvas) {
-    ctx = el.musicCanvas.getContext("2d");
-    resize();
-    window.addEventListener("resize", resize);
-  }
-
-  function resize() {
-    el.musicCanvas.width = el.musicCanvas.parentElement.clientWidth;
-    el.musicCanvas.height = 120;
-  }
-
-  el.vinylRecord.addEventListener("click", () => {
-    active = !active;
-
-    if (active) {
-      Toast.show("Music ON");
-      loop();
-    } else {
-      cancelAnimationFrame(raf);
-      particles = [];
-      ctx.clearRect(0, 0, el.musicCanvas.width, el.musicCanvas.height);
-      Toast.show("Music OFF");
-    }
-  });
-
-  function loop() {
-    if (!active) return;
-
-    ctx.clearRect(0, 0, el.musicCanvas.width, el.musicCanvas.height);
-
-    if (particles.length < 15 && Math.random() < 0.2) {
-      particles.push({
-        x: el.musicCanvas.width / 2,
-        y: el.musicCanvas.height,
-        r: Math.random() * 3 + 2,
-        vy: Math.random() * 1.5 + 0.5,
-        a: 1
-      });
-    }
-
-    particles.forEach((p, i) => {
-      p.y -= p.vy;
-      p.a -= 0.01;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(33,158,188,${p.a})`;
-      ctx.fill();
-
-      if (p.a <= 0) particles.splice(i, 1);
-    });
-
-    raf = requestAnimationFrame(loop);
-  }
-
-  /* ===============================
-     INTERACTIVE OBJECTS
-  =============================== */
-  el.coffeeMug.addEventListener("click", () => {
-    const msgs = [
-      "Coffee ready",
-      "Reminder: water plants",
-      "Leo left his binder",
-      "Call scheduled at 4pm"
-    ];
-    Toast.show(msgs[Math.floor(Math.random() * msgs.length)]);
-  });
-
-  el.deskToy.addEventListener("click", () => {
-    if (el.pendulumArm.classList.contains("pendulum-swinging")) return;
-
-    el.pendulumArm.classList.add("pendulum-swinging");
-    setTimeout(() => {
-      el.pendulumArm.classList.remove("pendulum-swinging");
-    }, 5000);
-
-    Toast.show("Pendulum active");
-  });
-});
+/* ==========================================================================
+   SAFETY NET
+   ========================================================================== */
+img {
+  max-width: 100%;
+  display: block;
+}
