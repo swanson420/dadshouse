@@ -1,0 +1,939 @@
+/* ==========================================================================
+   GLOBAL DESIGN CONSTANTS & CONFIGURATIONS (60-30-10 VISUAL SYSTEM)
+   ========================================================================== */
+:root {
+  /* Color Palette Hierarchy */
+  --bg-base: #1A1D20;         /* Dominant 60%: Deep Studio Slate charcoal */
+  --container-wall: #2C3036;  /* Warm Ash structural gray providing layout depth */
+  --text-default: #F8F9FA;    /* Off-white ensuring crisp WCAG AA 4.5:1 contrast */
+  
+  --wood-oak: #8B5A2B;        /* Secondary 30%: Muted natural oak wood finish */
+  --bg-overlay-card: #24282D; /* Clean container layering structure */
+  --text-secondary: #ADB5BD;  /* Low-contrast descriptive metadata labels */
+  
+  --accent-amber: #FFB703;    /* Accent 10%: Warm glowing interactive highlight path */
+  --accent-glow-blue: #219EBC;/* Secondary glow for active ambient backlights */
+  --color-success: #2A9D8F;   /* Execution Success Hook validation */
+  --color-error: #E63946;     /* Operational Fault Exception configuration */
+
+  /* Type Hierarchy (3-Tier Typography System) */
+  --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Spatial System Multipliers */
+  --spacing-micro: 8px;
+  --spacing-inner: 12px;
+  --spacing-card: 16px;
+  --spacing-structural: 40px;
+}
+
+/* Base Reset & Ambient Foundations */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-stack);
+  background-color: var(--bg-base);
+  color: var(--text-default);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Environmental Time-Dependent Layer Rendering */
+.window-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.sky-gradient {
+  width: 100%;
+  height: 100%;
+  transition: background 2s ease-in-out;
+  opacity: 0.12; /* Keeps ambient intent low-impact behind components */
+}
+
+.window-animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.shooting-star-node {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #FFF;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #FFF, 0 0 20px #FFF;
+  animation: shootingStarMove 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes shootingStarMove {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+  10% {
+    transform: translate(40px, 20px) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(400px, 20px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   INTERFACE INTERACTIVE DISPLAY INTERACTION GRID (3-WALL PERSPECTIVE SYSTEM)
+   ========================================================================== */
+.living-canvas-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas:
+    "mantel"
+    "left-wall"
+    "center-wall"
+    "right-wall"
+    "memory";
+  gap: var(--spacing-structural);
+  padding: var(--spacing-card);
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Fluid Responsive Breakpoints mapped Mobile-First upward */
+@media (min-width: 992px) {
+  .living-canvas-container {
+    grid-template-columns: 260px 1fr 260px;
+    grid-template-rows: 80px 1fr auto;
+    grid-template-areas:
+      "mantel mantel mantel"
+      "left-wall center-wall right-wall"
+      "memory memory memory";
+    padding: var(--spacing-structural);
+  }
+}
+
+/* ==========================================================================
+   COMPONENT TRANSLATIONS & ELEVATION STATES
+   ========================================================================== */
+
+/* 1. TOP MANTEL (Trophy Shelf Timeline) */
+.top-mantel {
+  grid-area: mantel;
+  display: flex;
+  align-items: flex-end;
+}
+
+.mantel-shelf {
+  width: 100%;
+  height: 16px;
+  background-color: var(--wood-oak);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 0 var(--spacing-structural);
+  gap: var(--spacing-card);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.mantel-item {
+  background: none;
+  border: none;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.85;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.mantel-item svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--text-default);
+  transition: fill 0.2s ease;
+}
+
+.mantel-item:hover, .mantel-item:focus {
+  opacity: 1;
+  transform: scale(1.22) translateY(-4px);
+}
+
+.mantel-item:focus-visible {
+  outline: 2px solid var(--accent-amber);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* 2. LEFT WALL (Private Bedroom Portals) */
+.left-wall {
+  grid-area: left-wall;
+  background-color: var(--container-wall);
+  border-radius: 8px;
+  padding: var(--spacing-card);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+
+.door-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: var(--spacing-card);
+}
+
+@media (min-width: 992px) {
+  .door-container {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-structural);
+  }
+}
+
+.bedroom-door {
+  background: none;
+  border: none;
+  width: 75px;
+  height: 200px;
+  cursor: pointer;
+  outline: none;
+  perspective: 800px;
+  position: relative;
+  padding: 0;
+}
+
+@media (min-width: 992px) {
+  .bedroom-door {
+    width: 110px;
+    height: 280px;
+  }
+}
+
+.door-frame {
+  width: 100%;
+  height: 100%;
+  border: 4px solid #1f2226;
+  border-bottom: none;
+  background-color: #121416;
+  position: relative;
+  overflow: hidden;
+}
+
+.door-leaf {
+  width: 100%;
+  height: 100%;
+  background-color: var(--door-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: var(--spacing-structural);
+  position: relative;
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+}
+
+.nameplate {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 992px) {
+  .nameplate {
+    font-size: 13px;
+    padding: 4px 8px;
+  }
+}
+
+.door-knob {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-amber);
+  border-radius: 50%;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Interactive States for Doors */
+.bedroom-door:hover .door-leaf,
+.bedroom-door:focus .door-leaf {
+  transform: rotateY(-12deg);
+  box-shadow: -10px 0 15px var(--member-glow-color);
+}
+
+.bedroom-door:focus-visible .door-frame {
+  outline: 2px solid var(--accent-amber);
+}
+
+/* Locked / Unbuilt State Override Architecture */
+.bedroom-door.locked {
+  cursor: not-allowed;
+}
+
+.bedroom-door.locked .door-leaf {
+  opacity: 0.4;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.reserved-badge {
+  position: absolute;
+  bottom: var(--spacing-card);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  background-color: var(--color-error);
+  color: #FFF;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+/* 3. CENTER WALL (Central TV & Furniture Sandbox Layout) */
+.center-wall {
+  grid-area: center-wall;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-structural);
+}
+
+.central-tv {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  cursor: pointer;
+  position: relative;
+}
+
+.tv-bezel {
+  background-color: #2C3036;
+  border: 4px solid #1A1D20;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.tv-screen-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0d0e10;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.tv-content-layer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Embedded Resource Display Elements */
+.tv-iframe-element {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.ambient-playlist {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 0 20px rgba(33, 158, 188, 0.3);
+  animation: ambientGlowCycle 8s infinite alternate;
+  padding: var(--spacing-structural);
+  text-align: center;
+}
+
+@keyframes ambientGlowCycle {
+  0% { box-shadow: inset 0 0 20px rgba(33, 158, 188, 0.2); }
+  100% { box-shadow: inset 0 0 40px rgba(33, 158, 188, 0.45); }
+}
+
+.notification-ticker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,183,3,0.3);
+}
+
+.ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tickerScroll 25s linear infinite;
+  font-size: 12px;
+  color: var(--accent-amber);
+  font-weight: 500;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-100%, 0, 0); }
+}
+
+.static-notice-display h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-default);
+  margin-bottom: var(--spacing-micro);
+}
+
+.static-notice-display p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* Play/Edit Overlay Indicator */
+.tv-hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 29, 32, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.2s ease;
+}
+
+.play-icon-svg {
+  width: 50px;
+  height: 50px;
+  fill: var(--accent-amber);
+}
+
+.central-tv:hover .tv-hover-overlay {
+  opacity: 1;
+}
+
+/* Couch and Coffee Table Sandbox Structural Layout */
+.couch-table-surface {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.furniture-silhouette {
+  background-color: rgba(44, 48, 54, 0.4);
+  border-radius: 12px;
+  padding: var(--spacing-structural) var(--spacing-card) var(--spacing-card) var(--spacing-card);
+  position: relative;
+}
+
+.coffee-table {
+  height: 50px;
+  background-color: var(--wood-oak);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-structural);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
+
+/* Discovery Hitboxes Configuration Archetypes */
+.hitbox-node {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mug Hitbox Node */
+.mug-node {
+  width: 32px;
+  height: 32px;
+  transform-origin: bottom center;
+  transition: transform 0.2s ease;
+}
+
+.mug-svg {
+  width: 100%;
+  height: 100%;
+  fill: #E9D8A6;
+}
+
+.steam-path {
+  stroke: var(--text-secondary);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0.5;
+  stroke-dasharray: 4;
+  animation: steamRise 2s linear infinite;
+}
+
+@keyframes steamRise {
+  0% { stroke-dashoffset: 10; opacity: 0.2; }
+  50% { opacity: 0.6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.mug-node:hover, .mug-node:focus {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Remote Control Hitbox Node */
+.remote-node {
+  width: 48px;
+  height: 16px;
+  transition: outline 0.15s ease;
+}
+
+.remote-hardware {
+  width: 100%;
+  height: 100%;
+  background-color: #121416;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 4px;
+}
+
+.remote-button {
+  width: 4px;
+  height: 4px;
+  background-color: #555;
+  border-radius: 50%;
+}
+
+.remote-button.power {
+  background-color: var(--color-error);
+}
+
+.remote-node:hover, .remote-node:focus {
+  outline: 1px solid var(--accent-amber);
+  outline-offset: 4px;
+}
+
+/* Desk Toy Pendulum Hitbox Node */
+.pendulum-node {
+  width: 40px;
+  height: 45px;
+  margin-top: -25px; /* Sits naturally on surface plane */
+}
+
+.pendulum-stand {
+  position: absolute;
+  top: 0;
+  width: 24px;
+  height: 4px;
+  background-color: #ADB5BD;
+}
+
+.pendulum-arm {
+  width: 2px;
+  height: 30px;
+  background-color: #ADB5BD;
+  position: absolute;
+  top: 4px;
+  transform-origin: top center;
+}
+
+.pendulum-bob {
+  width: 8px;
+  height: 8px;
+  background-color: #FFF;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: -3px;
+}
+
+.pendulum-swinging {
+  animation: pendulumSwing 1s ease-in-out infinite alternate;
+}
+
+@keyframes pendulumSwing {
+  0% { transform: rotate(-20deg); }
+  100% { transform: rotate(20deg); }
+}
+
+/* 4. RIGHT WALL (Recreational Zone Mapping) */
+.right-wall {
+  grid-area: right-wall;
+  background-color: var(--container-wall);
+  border-radius: 8px;
+  padding: var(--spacing-card);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+}
+
+.recreation-zone {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-structural);
+  align-items: center;
+}
+
+/* Game Room Structural Doorway Node */
+.game-portal {
+  width: 100%;
+  max-width: 200px;
+  height: 120px;
+  background-color: #121416;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center center;
+}
+
+.game-portal-frame {
+  position: absolute;
+  inset: 4px;
+  background-color: #1A1D20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+/* Infinity Neon Gradient Loop Border */
+.game-portal::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, var(--accent-amber), var(--accent-glow-blue), var(--color-error), var(--accent-amber));
+  animation: neonLoop 6s linear infinite;
+}
+
+@keyframes neonLoop {
+  0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+  100% { transform: rotate(360deg); filter: hue-rotate(360deg); }
+}
+
+.portal-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #FFF;
+  text-shadow: 0 0 8px var(--accent-amber);
+}
+
+.game-portal:focus-visible {
+  outline: 2px solid #FFF;
+  outline-offset: 4px;
+}
+
+/* Music Corner Architecture Module */
+.music-corner {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.audio-cabinet {
+  width: 100%;
+  background-color: #24282D;
+  border: 2px solid #1A1D20;
+  border-radius: 4px;
+  padding: var(--spacing-card) var(--spacing-inner);
+  text-align: center;
+  z-index: 2;
+}
+
+.vinyl-record {
+  width: 90px;
+  height: 90px;
+  background-color: #111;
+  border-radius: 50%;
+  margin: 0 auto var(--spacing-inner) auto;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.vinyl-grooves {
+  position: absolute;
+  inset: 10px;
+  border: 1px double #333;
+  border-radius: 50%;
+}
+
+.vinyl-label {
+  position: absolute;
+  inset: 30px;
+  background-color: var(--accent-glow-blue);
+  border-radius: 50%;
+}
+
+.vinyl-spinning {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.vinyl-record:focus-visible {
+  outline: 2px solid var(--accent-amber);
+}
+
+.audio-controls-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.music-particle-canvas {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  height: 120px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 5. FAMILY MEMORY WALL (Asymmetric Gallery Collage) */
+.family-memory-wall {
+  grid-area: memory;
+}
+
+.collage-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-structural);
+  justify-content: center;
+  align-items: center;
+}
+
+.memory-card {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  display: block;
+}
+
+.photo-frame {
+  background-color: #FFF;
+  padding: 10px 10px 24px 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+  transform: rotate(-1.5deg);
+  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.memory-card:nth-child(even) .photo-frame {
+  transform: rotate(2deg);
+}
+
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: grayscale(15%);
+  transition: filter 0.25s ease;
+}
+
+.frame-caption {
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1A1D20;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Absolute Frame Dimensional Mapping */
+.card-size-s .photo-frame { width: 140px; }
+.card-size-s .photo-frame img { height: 100px; }
+
+.card-size-m .photo-frame { width: 190px; }
+.card-size-m .photo-frame img { height: 140px; }
+
+.card-size-l .photo-frame { width: 240px; }
+.card-size-l .photo-frame img { height: 180px; }
+
+/* Memory Interface Interaction States */
+.memory-card:hover .photo-frame,
+.memory-card:focus .photo-frame {
+  transform: scale(1.04) rotate(0deg);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+}
+
+.memory-card:hover img,
+.memory-card:focus img {
+  filter: grayscale(0%);
+}
+
+.memory-card:focus-visible .photo-frame {
+  outline: 3px solid var(--accent-amber);
+}
+
+/* ==========================================================================
+   OVERLAY SYSTEMS, LIGHTBOX MODALS & TOAST PARAMETERS
+   ========================================================================== */
+
+/* Toast System Layout Framework */
+.global-toast-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-micro);
+  width: 90%;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.toast-item {
+  background-color: var(--bg-overlay-card);
+  border-left: 4px solid var(--accent-amber);
+  color: var(--text-default);
+  padding: var(--spacing-inner) var(--spacing-card);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  font-size: 13px;
+  line-height: 1.4;
+  pointer-events: auto;
+  animation: slideToastDown 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideToastDown {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Lightbox Modal Configuration Elements */
+.overlay-modal-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-card);
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(26, 29, 32, 0.9);
+}
+
+.modal-card {
+  background-color: var(--bg-overlay-card);
+  border: 1px solid var(--container-wall);
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  padding: var(--spacing-structural);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  animation: modalScaleUp 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes modalScaleUp {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-header-text {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-default);
+  margin-bottom: var(--spacing-card);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-card);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-micro);
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.form-input {
+  background-color: var(--bg-base);
+  border: 1px solid var(--container-wall);
+  color: var(--text-default);
+  padding: 10px var(--spacing-inner);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s eas
